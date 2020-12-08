@@ -1,27 +1,28 @@
+
 const form = document.getElementById('register');
-const firstname = document.getElementById('fname').value;
-const lastname = document.getElementById('lname').value;
-const email = document.getElementById('email').value;
-const password = document.getElementById('password').value;
 
 form.addEventListener('submit', e => {
     e.preventDefault();
 
+    const firstName = form['fname'].value;
+    const lastName = form['lname'].value;
+    const email = form['email'].value;
+    const password = form['password'].value;
 
     if (firstName === '') {
-        addErrorTo('firstname', 'First name cannot be empty');
+        addErrorTo('fname', 'First name cannot be empty');
     } else {
-        removeErrorFrom('firstname');
+        removeErrorFrom('fname');
     }
 
     if (lastName === '') {
-        addErrorTo('lastname', 'Last name cannot be empty');
+        addErrorTo("lname", 'Last name cannot be empty');
     } else {
-        removeErrorFrom('lastname');
+        removeErrorFrom('lname');
     }
 
     if (email === '') {
-        addErrorTo('email', 'Email cannot be empty');
+        addErrorTo("email", 'Email cannot be empty');
     } else if (!isValid(email)) {
         addErrorTo('email', 'Looks like this is not an email');
     } else {
@@ -29,24 +30,28 @@ form.addEventListener('submit', e => {
     }
 
     if (password === '') {
-        addErrorTo('password', 'Password cannot be empty');
+        addErrorTo("password", 'Password cannot be empty');
     } else {
         removeErrorFrom('password');
     }
 });
 
 
-function addErrorTo(input, message) {
-    const formControl = input.parentElement;
+function addErrorTo(field, message) {
+    const formControl = form[field].parentNode;
     formControl.classList.add('error');
 
     const small = formControl.querySelector('small');
+    console.log(small);
     small.innerText = message;
 }
 
-function removeErrorFrom(input) {
-    const formControl = input.parentElement;
+function removeErrorFrom(field) {
+    const formControl = form[field].parentNode;
     formControl.classList.remove('error');
+
+    const small = formControl.querySelector('small');
+    small.innerText = "";
 }
 
 function isValid(email) {
